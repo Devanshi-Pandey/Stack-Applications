@@ -1,0 +1,35 @@
+import java.util.*;
+
+public class NextGreaterElementToRight {
+
+    public static void main(String[] args) {
+        Scanner scanner = new Scanner(System.in);
+        System.out.print("Enter the size of the array: ");
+        int n = scanner.nextInt();
+        int[] arr = new int[n];
+        System.out.print("Enter the elements of the array: ");
+        for (int i = 0; i < n; i++) {
+            arr[i] = scanner.nextInt();
+        }
+        int[] result = nextGreaterElementToRight(arr);
+        System.out.println("Original Array: " + Arrays.toString(arr));
+        System.out.println("Next Greater Element to the Right: " + Arrays.toString(result));
+    }
+
+    public static int[] nextGreaterElementToRight(int[] arr) {
+        int n = arr.length;
+        int[] result = new int[n];
+        Stack<Integer> stack = new Stack<>();
+
+        for (int i = n - 1; i >= 0; i--) {
+            while (!stack.isEmpty() && stack.peek() <= arr[i]) {
+                stack.pop();
+            }
+
+            result[i] = stack.isEmpty() ? -1 : stack.peek();
+            stack.push(arr[i]);
+        }
+
+        return result;
+    }
+}
